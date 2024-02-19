@@ -1,0 +1,100 @@
+-- Create a person:
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createPerson`(nom varchar(50), prenom varchar(50), dob DATE, login varchar(20), mot_de_passe varchar(20), role varchar(20))
+begin 
+    insert into personne(nom,prenom,dob,login,mot_de_passe) 
+    values (nom,prenom,dob,login,mot_de_passe);
+    SET @role_id = (SELECT id FROM roles WHERE description = role);
+    SET @personne_id = (SELECT id FROM personne WHERE personne.login = login);
+    insert into posseder
+    values (@role_id,@personne_id);
+end
+
+-- Delete a person
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deletePerson`(login varchar(20))
+begin 
+    delete from posseder where personne_id = (select personne.id from personne where personne.login = login);
+    delete from personne where personne.login = login;
+end
+
+-- Modify a person
+CREATE DEFINER=`root`@`localhost` PROCEDURE `modifyUser`(nom varchar(20), prenom varchar(20), dob date, login varchar(20), mot_de_passe varchar(20), wishlist_id int)
+begin
+  UPDATE personne 
+  SET nom = nom,
+      prenom = prenom,
+      dob = dob,
+      mot_de_passe = mot_de_passe,
+      wishlist_id = wishlist_id
+  WHERE login = login;
+
+end
+
+-- Create a company
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createCompany`(nom varchar(20), evaluation_stagaire float, confiance_pilote float, description_entreprise varchar(200), secteur JSON)
+begin 
+    declare entreprise_id INT;
+
+    insert into entreprise(nom,evaluation_stagaire,confiance_pilote,description_entreprise) 
+    values (nom,evaluation_stagaire,confiance_pilote,description_entreprise);
+    /*SET @secteur_id = (SELECT id FROM secteur WHERE nom_secteur = secteur);*/
+      SET entreprise_id = LAST_INSERT_ID();
+
+      WHILE JSON_LENGTH(secteur) > 0 DO
+        INSERT INTO agir(entreprise_id,secteur_id)
+        SELECT entreprise_id,
+               (SELECT id FROM secteur WHERE nom_secteur = JSON_EXTRACT(secteur, CONCAT('$[', JSON_LENGTH(secteur) -  JSON_LENGTH(secteur) , '].nom_secteur')));
+            SET secteur = JSON_REMOVE(secteur, CONCAT('$[', JSON_LENGTH(secteur) -  JSON_LENGTH(secteur) , ']'));
+          END WHILE;
+end
+
+-- Delete a company
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteCompany`(id INT)
+begin 
+    delete from agir where entreprise_id = id;
+    delete from entreprise where entreprise.id = id;
+end
+
+-- Modify a company
+CREATE DEFINER=`root`@`localhost` PROCEDURE `modifyCompany`(id INT, nom varchar(50),evaluation_stagaire float,confiance_pilote float,description_entreprise varchar(200), secteur JSON)
+begin
+  UPDATE entreprise 
+  SET nom = nom,
+      evaluation_stagaire = evaluation_stagaire,
+      confiance_pilote = confiance_pilote,
+      description_entreprise = description_entreprise
+  WHERE id = id;
+      WHILE JSON_LENGTH(secteur) > 0 DO
+        INSERT IGNORE INTO agir(entreprise_id,secteur_id)
+        SELECT id,
+            (SELECT secteur.id FROM secteur WHERE nom_secteur = JSON_EXTRACT(secteur, CONCAT('$[', JSON_LENGTH(secteur) -  JSON_LENGTH(secteur) , '].nom_secteur')));
+            SET secteur = JSON_REMOVE(secteur, CONCAT('$[', JSON_LENGTH(secteur) -  JSON_LENGTH(secteur) , ']'));
+          END WHILE;
+end
+
+-- Call create company
+call mydb.createCompany('CESI', 1, 1, "CESI ecole d'ingenieurs", '[{"nom_secteur":"informatique"},{"nom_secteur":"btp"}]');
+
+-- Create an offer
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createOffer`(titre varchar(50), date_offre DATE, base_de_remuneration float, duree_stage int, nombre_places int, description_offre varchar(200), localite varchar(100))
+begin 
+    declare offre_id INT;
+    insert into offre(titre,date_offre,base_de_remuneration,duree_stage,nombre_places,description_offre,localite_id) 
+    values (titre,date_offre,base_de_remuneration,duree_stage,nombre_places,description_offre,
+    (select localite.id from localite where adresse_localite = localite)
+    );
+    
+end
+
+-- Modify an offer
+CREATE DEFINER=`root`@`localhost` PROCEDURE `modifyOffer`(id int, titre varchar(50), date_offre DATE, base_de_remuneration float, duree_stage int, nombre_places int, description_offre varchar(200), localite varchar(100))
+BEGIN 
+    UPDATE offre 
+    SET titre = titre,
+        date_offre = date_offre,
+        base_de_remuneration = base_de_remuneration,
+        duree_stage = duree_stage,
+        nombre_places = nombre_places,
+        description_offre = description_offre,
+        localite_id = (SELECT localite.id FROM localite WHERE adresse_localite = localite)
+    WHERE id = id;    
+end
