@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-03-28 11:44:11
+/* Smarty version 4.3.0, created on 2023-03-28 15:16:46
   from 'D:\Programs\wamp64\www\PROJETWEB\libs\templates\student_home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_6422d30b559ef9_54111622',
+  'unifunc' => 'content_642304de773c15_60771259',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '106c5df4a6b75cb5250bad5316f8827229339b62' => 
     array (
       0 => 'D:\\Programs\\wamp64\\www\\PROJETWEB\\libs\\templates\\student_home.tpl',
-      1 => 1680003846,
+      1 => 1680016602,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6422d30b559ef9_54111622 (Smarty_Internal_Template $_smarty_tpl) {
+function content_642304de773c15_60771259 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 
@@ -36,6 +36,8 @@ function content_6422d30b559ef9_54111622 (Smarty_Internal_Template $_smarty_tpl)
 </p>
     <button id="person" type="button">tableau personne</button>
     <button id="company" type="button">tableau entreprise</button>
+    <button id="offer" type="button">tableau entreprise</button>
+
     <div id="table_container"></div>
 
     <?php echo '<script'; ?>

@@ -17,4 +17,4 @@ $smarty->assign('role',$role);
 
 
 // afficher la bonne page selon le role 
-$smarty->display('admin_home.tpl');
+$smarty->display('offers_home.tpl');

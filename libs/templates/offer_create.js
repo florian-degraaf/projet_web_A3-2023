@@ -7,7 +7,7 @@ $('input[name="confirm"]').click(function () {
     $.ajax({
         url: 'templates/select_person.php',
         type: 'POST',
-        data: { type: 7, table: "personnez", inputData: json_data },
+        data: { type: 7, table: "offre", inputData: json_data },
         success: function (data) {
             $('#table_container').html(data);
         }

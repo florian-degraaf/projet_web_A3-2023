@@ -1,34 +1,39 @@
-$('#person').click(function () {
+$('input[name="modify"]').click(function () {
+    var table = $(this).attr('class');
+    var id = $(this).data('id');
     $.ajax({
         url: 'templates/select_person.php',
         type: 'POST',
-        async: true,
-        data: { type: 1, table: 'personne' },
+        data: { type: 2, table: table, data_id: id },
         success: function (data) {
             $('#table_container').html(data);
         }
     });
 });
 
-$('#company').click(function () {
-    $.ajax({
+$('input[name="delete"]').click(function () {
+    var table = $(this).attr('class');
+    var id = $(this).data('id');
 
+    console.log(table);
+
+    $.ajax({
         url: 'templates/select_person.php',
         type: 'POST',
-        async: true,
-        data: { type: 1, table: 'entreprise' },
+        data: { type: 8, table: table, data_id: id },
         success: function (data) {
             $('#table_container').html(data);
         }
     });
 });
 
-$('#offer').click(function () {;
+$('input[name="create"]').click(function () {
+    var table = $(this).attr('class');
+
     $.ajax({
         url: 'templates/select_person.php',
         type: 'POST',
-        async: true,
-        data: { type: 1, table: 'offre' },
+        data: { type: 6, table: table },
         success: function (data) {
             $('#table_container').html(data);
         }

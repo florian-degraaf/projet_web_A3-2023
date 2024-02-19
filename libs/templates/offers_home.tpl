@@ -9,14 +9,12 @@
 <body>
     <p>ID de la personne connecté : {$person_id}</p>
     <p>Role de la personne connecté : {$role}</p>
-    <button id="person" type="button">tableau personne</button>
-    <button id="company" type="button">tableau entreprise</button>
-    <button id="offer" type="button">tableau offres</button>
 
+    <button id="offer" data-id="7" type="button">tableau offres</button>
     <div id="table_container"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="templates/home.js"></script>
+    <script src="templates/offers_home.js"></script>
 </body>
 
 

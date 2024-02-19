@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-03-28 21:13:07
-  from 'D:\Programs\wamp64\www\PROJETWEB\libs\templates\admin_home.tpl' */
+/* Smarty version 4.3.0, created on 2023-03-28 23:56:28
+  from 'D:\Programs\wamp64\www\PROJETWEB\libs\templates\offers_home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_642358639d1e54_62934258',
+  'unifunc' => 'content_64237eac017418_75415502',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '263d1d801f79e62a9de498735b7afc4fce26c8e7' => 
+    '0d81ac3895df96fbc3232371ce8c9c43532bd17b' => 
     array (
-      0 => 'D:\\Programs\\wamp64\\www\\PROJETWEB\\libs\\templates\\admin_home.tpl',
-      1 => 1680037970,
+      0 => 'D:\\Programs\\wamp64\\www\\PROJETWEB\\libs\\templates\\offers_home.tpl',
+      1 => 1680047775,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_642358639d1e54_62934258 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64237eac017418_75415502 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 
@@ -34,18 +34,15 @@ function content_642358639d1e54_62934258 (Smarty_Internal_Template $_smarty_tpl)
 </p>
     <p>Role de la personne connecté : <?php echo $_smarty_tpl->tpl_vars['role']->value;?>
 </p>
-    <button id="person" type="button">tableau personne</button>
-    <button id="company" type="button">tableau entreprise</button>
-    <button id="offer" type="button">tableau offres</button>
-    <a id="offers" type="button" href="offers_home.php">offres</a>
 
+    <button id="offer" data-id="7" type="button">tableau offres</button>
     <div id="table_container"></div>
 
     <?php echo '<script'; ?>
  src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"><?php echo '</script'; ?>
 >
     <?php echo '<script'; ?>
- src="templates/home.js"><?php echo '</script'; ?>
+ src="templates/offers_home.js"><?php echo '</script'; ?>
 >
 </body>
 
